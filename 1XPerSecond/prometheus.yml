@@ -50,12 +50,40 @@ apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
   name: prometheus
+  labels:
+    app: prometheus
 spec:
   serviceAccountName: prometheus
-  serviceMonitorSelector:
-    matchLabels:
-      team: frontend
+  serviceMonitorSelector: {}
 --- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+spec:
+  ports:
+  - name: web
+    port: 9090
+    targetPort: web
+  selector:
+    app.kubernetes.io/name: prometheus
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-self
+  labels:
+    app: prometheus
+spec:
+  endpoints:
+  - interval: 30s
+    port: web
+  selector:
+    matchLabels:
+      app: prometheus
+---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -68,3 +96,16 @@ spec:
       app: petclinic
   endpoints:
   - port: web
+--- 
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: demo-db
+  labels:
+    team: frontend
+spec:
+  selector:
+    matchLabels:
+      app: demo-db
+  endpoints:
+  - port: db
