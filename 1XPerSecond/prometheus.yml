@@ -52,4 +52,19 @@ metadata:
   name: prometheus
 spec:
   serviceAccountName: prometheus
-
+  serviceMonitorSelector:
+    matchLabels:
+      team: frontend
+--- 
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: petclinic
+  labels:
+    team: frontend
+spec:
+  selector:
+    matchLabels:
+      app: petclinic
+  endpoints:
+  - port: web
