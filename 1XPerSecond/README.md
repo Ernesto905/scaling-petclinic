@@ -1,7 +1,8 @@
 # One Request/Read/Write Per Second
 
 ## Prerequisites 
-- Ensure you have Docker and Kubernetes installed. I recommend [Minikube](https://minikube.sigs.k8s.io/docs/) for orchestration at this scale.
+- Ensure you have Docker 
+- Ensure you have [Minikube](https://minikube.sigs.k8s.io/docs/) installed
 
 
 ## Installation 
