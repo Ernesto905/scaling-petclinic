@@ -5,10 +5,19 @@ metadata:
 data:
   script.js: |
     import http from 'k6/http';
-    import { sleep } from 'k6';
+    export const options = {
+      scenarios: {
+        one_rps: {
+          executor: 'constant-arrival-rate',
+          duration: '60s',
+          preAllocatedVUs: 1,
+          rate: 1,
+          timeUnit: '1s'
+        },
+      },
+    };
     export default function () {
       http.get('http://petclinic:80');
-      sleep(1);
     }
 ---
 apiVersion: batch/v1

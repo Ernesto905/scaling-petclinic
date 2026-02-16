@@ -96,7 +96,7 @@ spec:
       app: petclinic
   endpoints:
   - port: web
-    path: 'actuator/prometheus' 
+    path: '/actuator/prometheus'
 --- 
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
