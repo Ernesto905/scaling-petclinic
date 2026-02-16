@@ -8,13 +8,35 @@ db.yml  k6.yml  petclinic.yml  prometheus-operator.yml  prometheus.yml  README.m
 
 
 ## Installation 
-1. Install the Prometheus operator.
+1. Initialize the cluster 
 ```
-kubectl apply --server-side -f prometheus-operator.yml
+# authorize execution 
+chmod +x apply-infra.sh
+
+./apply-infra.sh
 ```
-2. Install the rest of the infrastructure.
+
+
+2. deploy the webapp and dashboards
 ```
-kubectl apply --filename=db.yml,petclinic.yml,prometheus.yml
+# authorize execution 
+chmod +x start-monitoring.sh
+
+./start-monitoring.sh
 ```
+
+You're good to go!
+
+## Load testing 
+```
+minikube kubectl -- apply -f k6.yml
+```
+
+## Tear down
+```
+# authorize execution
+chmod +x teardown-infra.sh
+
+./teardown-infra.sh
 ```
 
