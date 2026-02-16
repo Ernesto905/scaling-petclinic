@@ -1,6 +1,3 @@
 [submodule "1XPerSecond/kube-prometheus"]
 	path = 1XPerSecond/kube-prometheus
 	url = https://github.com/prometheus-operator/kube-prometheus.git
-[submodule "spring-petclinic"]
-	path = spring-petclinic
-	url = https://github.com/Ernesto905/scaling-petclinic
