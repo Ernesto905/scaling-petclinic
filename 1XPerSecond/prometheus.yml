@@ -101,12 +101,12 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: demo-db
+  name: postgres-exporter
   labels:
     team: frontend
 spec:
   selector:
     matchLabels:
-      app: demo-db
+      app: postgres-exporter
   endpoints:
-  - port: db
+  - port: postgres-db
