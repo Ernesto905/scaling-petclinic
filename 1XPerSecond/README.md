@@ -1,14 +1,11 @@
-# 1 Request/Read/Write Per Second
+# One Request/Read/Write Per Second
 
 ## Prerequisites 
 - Ensure you have Docker and Kubernetes installed. I recommend [Minikube](https://minikube.sigs.k8s.io/docs/) for orchestration at this scale.
 
 
-db.yml  k6.yml  petclinic.yml  prometheus-operator.yml  prometheus.yml  README.md
-
-
 ## Installation 
-1. Initialize the cluster 
+Initialize the cluster 
 ```
 # authorize execution 
 chmod +x apply-infra.sh
@@ -17,7 +14,7 @@ chmod +x apply-infra.sh
 ```
 
 
-2. deploy the webapp and dashboards
+Deploy the web app and observability dashboards
 ```
 # authorize execution 
 chmod +x start-monitoring.sh
