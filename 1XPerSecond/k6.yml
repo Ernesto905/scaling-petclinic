@@ -18,8 +18,8 @@ data:
     };
     export default function () {
       const data = {
-        firstName: 'myfirst',
-        lastName: 'mylast',
+        firstName: 'myFirst',
+        lastName: 'myLast',
         address: '123',
         city: '123',
         telephone: '1231231234'
@@ -27,6 +27,7 @@ data:
       const header = {"Content-Type": "application/x-www-form-urlencoded"}
       http.get('http://petclinic:80');
       http.post('http://petclinic:80/owners/new', data, {headers: header})
+      http.get("http://petclinic:80/owners/1")
     }
 ---
 apiVersion: batch/v1
