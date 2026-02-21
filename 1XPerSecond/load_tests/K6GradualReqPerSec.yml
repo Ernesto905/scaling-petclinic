@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k6-script
+data:
+  script.js: |
+    import http from 'k6/http';
+    export const options = {
+      scenarios: {
+        rps: {
+          executor: 'ramping-arrival-rate',
+          startRate: 10,
+          preAllocatedVUs: 200,
+          maxVUs: 2000,
+          timeUnit: '1s',
+          stages: [
+            { duration: '30s', target: 100 },
+            { duration: '30s', target: 500 },
+            { duration: '30s', target: 1000 },
+            { duration: '60s', target: 1000 },
+          ]
+        }
+      },
+    };
+    export default function req_per_sec() {
+      http.get('http://petclinic:80/');
+    }
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: grafanak6
+          image: grafana/k6
+          command: ["k6", "run", "/scripts/script.js"]
+          volumeMounts:
+            - name: k6-script
+              mountPath: /scripts
+      volumes:
+        - name: k6-script
+          configMap:
+            name: k6-script
