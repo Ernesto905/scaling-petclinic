@@ -7,16 +7,39 @@ data:
     import http from 'k6/http';
     export const options = {
       scenarios: {
-        one_rps: {
+        one_req_per_sec: {
           executor: 'constant-arrival-rate',
           duration: '60s',
           preAllocatedVUs: 1,
           rate: 1,
-          timeUnit: '1s'
+          timeUnit: '1s',
+          exec: 'req_per_sec',
+        },
+        one_read_per_sec: {
+          executor: 'constant-arrival-rate',
+          duration: '60s',
+          preAllocatedVUs: 1,
+          rate: 1,
+          timeUnit: '1s',
+          exec: 'read_per_sec',
+        },
+        one_write_per_sec: {
+          executor: 'constant-arrival-rate',
+          duration: '60s',
+          preAllocatedVUs: 1,
+          rate: 1,
+          timeUnit: '1s',
+          exec: 'write_per_sec',
         },
       },
     };
-    export default function () {
+    export function req_per_sec() {
+      http.get('http://petclinic:80/actuator/health');
+    }
+    export function read_per_sec() {
+      http.get("http://petclinic:80/owners/1")
+    }
+    export function write_per_sec() {
       const data = {
         firstName: 'myFirst',
         lastName: 'myLast',
@@ -25,9 +48,7 @@ data:
         telephone: '1231231234'
       }
       const header = {"Content-Type": "application/x-www-form-urlencoded"}
-      http.get('http://petclinic:80');
-      http.post('http://petclinic:80/owners/new', data, {headers: header})
-      http.get("http://petclinic:80/owners/1")
+      http.post('http://petclinic:80/owners/new', data, {headers: header, redirects: 0})
     }
 ---
 apiVersion: batch/v1
