@@ -9,6 +9,7 @@ data:
       scenarios: {
         rps: {
           executor: 'ramping-arrival-rate',
+          exec: 'req_per_sec',
           startRate: 10,
           preAllocatedVUs: 200,
           maxVUs: 2000,
@@ -17,13 +18,24 @@ data:
             { duration: '30s', target: 100 },
             { duration: '30s', target: 500 },
             { duration: '30s', target: 1000 },
-            { duration: '60s', target: 1000 },
           ]
+        }, 
+        writes: {
+          executor: 'constant-arrival-rate',
+          duration: '60s',
+          preAllocatedVUs: 200,
+          startTime: '90s',
+          rate: 1000,
+          timeUnit: '1s',
+          exec: 'exec_writes',
         }
       },
     };
-    export default function read_per_sec() {
-      http.get("http://petclinic:80/owners/1")
+    export default function req_per_sec() {
+      http.get("http://petclinic:80/")
+    }
+    export function exec_writes() {
+      http. something
     }
 ---
 apiVersion: batch/v1

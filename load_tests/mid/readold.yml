@@ -7,18 +7,12 @@ data:
     import http from 'k6/http';
     export const options = {
       scenarios: {
-        rps: {
-          executor: 'ramping-arrival-rate',
-          startRate: 10,
-          preAllocatedVUs: 200,
-          maxVUs: 2000,
+        reads: {
+          executor: 'constant-arrival-rate',
+          duration: '60s',
+          preAllocatedVUs: 2000,
+          rate: 1000,
           timeUnit: '1s',
-          stages: [
-            { duration: '30s', target: 100 },
-            { duration: '30s', target: 500 },
-            { duration: '30s', target: 1000 },
-            { duration: '60s', target: 1000 },
-          ]
         }
       },
     };
