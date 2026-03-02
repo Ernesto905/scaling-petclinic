@@ -17,7 +17,7 @@ data:
           stages: [
             { duration: '30s', target: 100 },
             { duration: '30s', target: 500 },
-            { duration: '30s', target: 1000 },
+            { duration: '30s', target: 2500 },
           ]
         }, 
         writes: {
@@ -25,7 +25,7 @@ data:
           duration: '60s',
           preAllocatedVUs: 200,
           startTime: '90s',
-          rate: 1000,
+          rate: 5000,
           timeUnit: '1s',
           exec: 'writes_per_sec',
         }

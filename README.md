@@ -1,6 +1,7 @@
 ### Prerequisites 
 - Ensure you have Docker installed
 - Ensure you have [Minikube](https://minikube.sigs.k8s.io/docs/) installed
+- Ensure you have [Helm](https://helm.sh/docs/intro/install) installed
 
 ### Installation 
 Initialize the cluster 

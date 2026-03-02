@@ -10,8 +10,8 @@ data:
         reads: {
           executor: 'constant-arrival-rate',
           duration: '60s',
-          preAllocatedVUs: 2000,
-          rate: 1000,
+          preAllocatedVUs: 2,
+          rate: 1,
           timeUnit: '1s',
         }
       },

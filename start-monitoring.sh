@@ -5,19 +5,16 @@ echo "Deploying dashboard in namespace: $MONITORING_NAMESPACE"
 
 minikube kubectl -- port-forward svc/petclinic 8080:80 &
 SPRING_CLINIC_PID=$!
-minikube kubectl -- port-forward svc/prometheus-k8s --namespace "$MONITORING_NAMESPACE" 9090:9090 &
+minikube kubectl -- port-forward svc/kube-prometheus-stack-prometheus --namespace "$MONITORING_NAMESPACE" 9090:9090 &
 PROM_PID=$!
-minikube kubectl -- port-forward svc/grafana --namespace "$MONITORING_NAMESPACE" 3000:3000 &
+minikube kubectl -- port-forward svc/kube-prometheus-stack-grafana --namespace "$MONITORING_NAMESPACE" 3000:80 &
 GRAFANA_PID=$!
-minikube kubectl -- port-forward svc/alertmanager-main --namespace "$MONITORING_NAMESPACE" 9093:9093 &
-ALERT_PID=$!
 
 echo ""
 echo "Urls available:"
 echo "  Petclinic    → http://localhost:8080"
 echo "  Prometheus   → http://localhost:9090"
 echo "  Grafana      → http://localhost:3000 (username: admin / password: admin)"
-echo "  Alertmanager → http://localhost:9093"
 echo ""
 echo "Press Ctrl+C to stop all port-forwards."
 

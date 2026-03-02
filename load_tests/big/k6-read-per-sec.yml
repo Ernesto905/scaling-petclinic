@@ -11,7 +11,7 @@ data:
           executor: 'constant-arrival-rate',
           duration: '60s',
           preAllocatedVUs: 2000,
-          rate: 1000,
+          rate: 5000,
           timeUnit: '1s',
         }
       },
