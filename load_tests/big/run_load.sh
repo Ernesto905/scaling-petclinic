@@ -21,7 +21,7 @@ echo "Applying ${FILE}..."
 minikube kubectl -- apply -f "$FILE"
 
 echo "Waiting for job to be ready..."
-minikube kubectl -- wait --for=condition=complete job/k6 --timeout=-1s
+sleep 5
 
 echo "Following logs:"
 echo "----------------------------------------"
@@ -34,4 +34,3 @@ echo "Finished! Cleaning up resources..."
 minikube kubectl -- delete -f "$FILE"
 
 echo "Cleanup complete."
-
