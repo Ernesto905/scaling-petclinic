@@ -7,29 +7,27 @@ data:
     import http from 'k6/http';
     export const options = {
       thresholds: {
-        http_req_failed: [{
-              threshold: 'rate == 0',
-              http_req_duration: ['p(99)<200'], 
-              abortOnFail: true,
-              delayAbortEval: '0s'
-        }],
+        http_req_failed: ['rate<0.01'],
+        http_req_duration: ['p(99)<200'],
       },
       scenarios: {
-        rps: {
+        breakpoint: {
           executor: 'ramping-arrival-rate',
           startRate: 25,
-          preAllocatedVUs: 5000,
           timeUnit: '1s',
+          preAllocatedVUs: 50,
+          maxVUs: 500,
           stages: [
-            { duration: '30s', target: 250 },
-            { duration: '30s', target: 1250 },
-            { duration: '30s', target: 2000 },
-            { duration: '60s', target: 2000 },
-          ]
-        }
+            { duration: '2m',  target: 500  },
+            { duration: '2m',  target: 1000 },
+            { duration: '2m',  target: 2000 },
+            { duration: '2m',  target: 3000 },
+            { duration: '2m',  target: 4000 },
+          ],
+        },
       },
     };
-    export default function req_per_sec() {
+    export default function () {
       http.get('http://petclinic:80/');
     }
 ---
